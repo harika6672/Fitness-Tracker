@@ -1,0 +1,39 @@
+<section>
+    <form fxLayout="column" fxLayoutAlign="center center" #signupform="ngForm" (ngSubmit)="onSubmit(signupform)">
+        <mat-form-field>
+            <input
+             type="email"
+             matInput
+             placeholder="Email Address" 
+             ngModel
+             name="email"
+             email 
+             required
+             #emailInput="ngModel"><!-- used the ngModel to be able to access the properties of that formControl, such as to check if it is valid.email used in above line here is a directive -->
+            <mat-error *ngIf="emailInput.hasError('required')">Email is required field</mat-error>
+            <mat-error *ngIf="emailInput.value">Email is not valid </mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Minimum 6 characters should be there">
+                <input type="password"
+                 matInput
+                 placeholder="Password" 
+                 ngModel 
+                 name="password"
+                 #pwdInput = "ngModel"
+                 minlength ="6"
+                 required>
+                 <mat-hint align="end"> {{pwdInput.value?.length}}/6</mat-hint>
+                 <mat-error *ngIf="pwdInput.hasError('required')">Password is required field</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+                <input matInput [matDatepicker]="myDatepicker" placeholder = "Date of Birth" [min] = "minDate" [max]="maxDate" ngModel name="dob" required>
+                <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #myDatepicker></mat-datepicker>
+                
+              </mat-form-field>
+             
+       <mat-checkbox ngModel name="T&C" required labelPosition="after" color="primary">I agree to the Terms and Conditions</mat-checkbox>
+
+        <button id ="signup" type="submit" mat-raised-button color="primary" [disabled] = "signupform.invalid">Submit</button>
+    </form>
+</section>
